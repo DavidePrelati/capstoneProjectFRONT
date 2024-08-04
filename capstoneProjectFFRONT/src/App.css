@@ -13,3 +13,8 @@ body {
     padding-left: 90vh;
   }
 }  
+@media (min-width: 1420px) {
+  .centerMain{
+    padding-left:55vh;
+  }
+}  

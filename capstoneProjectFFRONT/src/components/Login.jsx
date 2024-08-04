@@ -12,16 +12,13 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
-        "http://localhost:3002/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const response = await fetch("http://localhost:3002/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
       if (!response.ok) {
         let errorMessage = "Errore durante il login";
@@ -56,7 +53,7 @@ const Login = () => {
       <Container className="mb-5 pb-5 centerLogin">
         <Row className="justify-content-md-center">
           <Col md="4" lg="12">
-            <h2 className="text-center text-secondary">Login</h2>
+            <h2 className="text-center text-primary">Login</h2>
             {showAlert && (
               <Alert
                 variant="danger"
@@ -68,7 +65,9 @@ const Login = () => {
             )}
             <Form onSubmit={handleLogin}>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label className="text-center">Email</Form.Label>
+                <Form.Label className="text-center text-white bg-primary py-1 px-1 my-2">
+                  Email
+                </Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Inserisci email"
@@ -79,7 +78,9 @@ const Login = () => {
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label className="text-center text-white bg-primary py-1 px-1 my-2">
+                  Password
+                </Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
@@ -95,9 +96,9 @@ const Login = () => {
             </Form>
             <div className="text-center">
               <small className="d-block text-white">oppure</small>
-              <Link to={"/register"} className="registrati">
-                Registrati
-              </Link>
+              <Button variant="light" className="px-5">
+                <Link to={"/register"}>Registrati</Link>
+              </Button>
             </div>
           </Col>
         </Row>
