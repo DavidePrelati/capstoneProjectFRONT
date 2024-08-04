@@ -1,0 +1,15 @@
+
+body {
+  background-image: url("https://www.focus.it/images/2021/12/16/calcio_1020x680.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+
+@media (min-width: 1420px) {
+  .centerLogin{
+    padding-left: 90vh;
+  }
+}  
