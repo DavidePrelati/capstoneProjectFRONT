@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
 import { Table, Form, Button, Modal, Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const MainPage = () => {
+const Squad = () => {
   const [show, setShow] = useState(false);
   const [token, setToken] = useState(null);
-  const [nation, setNation] = useState([]);
-  const [filter, setFilter] = useState("name");
-  const navigate = useNavigate();
+  const [squads, setSquads] = useState([]);
   const [name, setName] = useState("");
+  const [sponsor, setSponsor] = useState("");
+  const { nationId } = useParams();
+  const navigate = useNavigate();
 
   const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     const localeToken = localStorage.getItem("token");
     setToken(localeToken);
   }, []);
 
-  const getNation = async () => {
+  const getSquads = async () => {
     try {
-      let url = `http://localhost:3002/api/nations/${filter}`;
+      let url = `http://localhost:3002/api/squads?nationId=${nationId}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
@@ -34,8 +36,8 @@ const MainPage = () => {
       }
 
       const data = await response.json();
-      setNation(data.content);
-      console.log("Nations: ", data);
+      setSquads(data);
+      console.log("Squads: ", data);
     } catch (err) {
       console.log(err);
     }
@@ -43,18 +45,14 @@ const MainPage = () => {
 
   useEffect(() => {
     if (token) {
-      getNation();
+      getSquads();
     }
-  }, [token, filter]);
+  }, [token, nationId]);
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-  };
-
-  const handleNations = async (e) => {
+  const handleSquadSubmit = async (e) => {
     e.preventDefault();
     try {
-      let url = `http://localhost:3002/api/nations`;
+      let url = `http://localhost:3002/api/squads`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -63,6 +61,8 @@ const MainPage = () => {
         },
         body: JSON.stringify({
           name,
+          sponsor,
+          nationId: parseInt(nationId),
         }),
       });
 
@@ -72,9 +72,10 @@ const MainPage = () => {
       }
 
       const data = await response.json();
-      setNation(data.content);
-      console.log("Nations: ", data);
-      getNation();
+      setSquads([...squads, data]);
+      console.log("New Squad: ", data);
+      handleClose();
+      getSquads();
     } catch (err) {
       console.log(err);
     }
@@ -82,28 +83,20 @@ const MainPage = () => {
 
   return (
     <Container className="centerMain">
-      <Row>
-        <Col>
-          <Button variant="success" onClick={() => setShow(true)}>Add Nation</Button>
-        </Col>
-      </Row>
+      
       <Table>
         <tbody>
-          {nation &&
-            nation.map((nation, index) => (
+          {squads &&
+            squads.map((squad, index) => (
               <tr
                 key={index}
-                onClick={() => navigate(`/nation/${nation.id}`)}
+                onClick={() => navigate(`/squad/${squad.id}`)}
                 style={{ cursor: "pointer" }}
               >
-                <td className="px-5 py-5">
-                 
-                  <img
-                  src=
-                  {nation.name}
-                  style={{width: "50px"}}
-                  />
+                <td>
+                 {squad.name} 
                 </td>
+                <td>{squad.sponsor}</td>
               </tr>
             ))}
         </tbody>
@@ -112,4 +105,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default Squad;
