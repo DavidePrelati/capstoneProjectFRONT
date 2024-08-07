@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table, Form, Button, Modal, Row, Col } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,7 @@ const MainPage = () => {
   const [filter, setFilter] = useState("name");
   const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [url, setUrl] = useState("");
 
   const handleClose = () => setShow(false);
 
@@ -63,6 +64,7 @@ const MainPage = () => {
         },
         body: JSON.stringify({
           name,
+          url,
         }),
       });
 
@@ -82,33 +84,29 @@ const MainPage = () => {
 
   return (
     <Container className="centerMain">
-      <Row>
-        <Col>
-          <Button variant="success" onClick={() => setShow(true)}>Add Nation</Button>
-        </Col>
-      </Row>
-      <Table>
-        <tbody>
-          {nation &&
-            nation.map((nation, index) => (
-              <tr
-                key={index}
-                onClick={() => navigate(`/nation/${nation.id}`)}
-                style={{ cursor: "pointer" }}
-              >
-                <td className="px-5 py-5">
-                 
-                  <img
-                  src=
-                  {nation.name}
-                  style={{width: "50px"}}
-                  />
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
-    </Container>
+    <Row className="d-flex align-items-center justify-content-center">
+      {nation &&
+        nation.map((nation, index) => (
+          <Col
+            key={index}
+            className="d-flex align-items-center justify-content-center px-5"
+            xs="auto"
+          >
+            <Button
+              variant="link"
+              onClick={() => navigate(`/nation/${nation.id}`)}
+              className="p-0"
+            >
+              <img
+                src={nation.url}
+                alt={nation.name}
+                style={{ width: "50px", cursor: "pointer" }}
+              />
+            </Button>
+          </Col>
+        ))}
+    </Row>
+  </Container>
   );
 };
 
