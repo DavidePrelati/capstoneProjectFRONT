@@ -54,17 +54,18 @@ const Squad = () => {
             key={index}
             className="d-flex align-items-center justify-content-center"
             xs="auto"
+            ms={6}
             lg={3}
           >
             <Button
               variant="link"
-              onClick={() => navigate(`/squad/${squad.id}`)}
+              onClick={() => navigate(`/squad/${squad.name}`)}
               className="p-0"
             >
               <img
                 src={squad.urlImage}
                 alt={squad.name}
-                style={{ width: "150px", cursor: "pointer" }}
+                style={{ width: "120px", height:"auto", cursor: "pointer" }}
               />
             </Button>
           </Col>
