@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/main" element={<MainPage />} />
-        <Route path="/nation/:nationId" element={<Squad />} />
+        <Route path="/nation/:nationName" element={<Squad />} />
         <Route path="/register" element={<RegisterUser />} />
       </Routes>
     </BrowserRouter>
