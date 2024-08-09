@@ -7,10 +7,12 @@ import MainPage from "./components/MainPage";
 import Squad from "./components/Squad";
 import Shirt from "./components/Shirt";
 import ShirtDetail from "./components/ShirtDetails";
+import MyNavbar from "./components/NavBar";
 
 function App() {
   return (
     <BrowserRouter>
+      <MyNavbar />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/main" element={<MainPage />} />
