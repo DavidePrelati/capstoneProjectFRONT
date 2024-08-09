@@ -6,6 +6,7 @@ import RegisterUser from "./components/RegisterUser";
 import MainPage from "./components/MainPage";
 import Squad from "./components/Squad";
 import Shirt from "./components/Shirt";
+import ShirtDetail from "./components/ShirtDetails";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/main" element={<MainPage />} />
         <Route path="/nation/:nationName" element={<Squad />} />
         <Route path="/squad/:squadName" element={<Shirt />} />
+        <Route path="/shirt/:shirtName" element={<ShirtDetail />} />
         <Route path="/register" element={<RegisterUser />} />
       </Routes>
     </BrowserRouter>

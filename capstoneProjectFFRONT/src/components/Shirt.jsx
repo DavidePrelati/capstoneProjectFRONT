@@ -11,7 +11,7 @@ const Shirt = () => {
 
   useEffect(() => {
     const localeToken = localStorage.getItem("token");
-    console.log("Token:", localeToken); // Verifica il token
+    console.log("Token:", localeToken);
     setToken(localeToken);
   }, []);
   useEffect(() => {
@@ -51,36 +51,37 @@ const Shirt = () => {
 
   return (
     <Container className="px-5">
-      <Row className="d-flex align-items-center justify-content-center px-5">
-        {shirts.map((shirt, index) => (
-          <Col
-            key={index}
-            className="d-flex align-items-center justify-content-center"
-            xs="auto"
-            ms={6}
-            lg={3}
+    <Row className="d-flex align-items-center justify-content-center g-4"> 
+      {shirts.map((shirt, index) => (
+        <Col
+          key={index}
+          className="d-flex align-items-center justify-content-center"
+          xs={12} 
+          sm={6}  
+          md={4}  
+          lg={4}  
+          xl={4}  
+        >
+          <Button
+            variant="link"
+            onClick={() => navigate(`/shirt/${shirt.id}`)}
+            className="p-0" 
           >
-            <Button
-              variant="link"
-              onClick={() => navigate(`/shirt/${shirt.name}`)}
-              className="p-0"
-            >
-              <Card style={{ width: "12rem" }}>
-              <Card.Title>{shirt.name}</Card.Title>
-                <Card.Img variant="top" src={shirt.urlImage} />
-                <Card.Body>
-                  
-                  <Card.Text>
-                    {shirt.price}€, {shirt.number}
-                  </Card.Text>
-                  <Button variant="success">Compra</Button>
-                </Card.Body>
-              </Card>
-            </Button>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+            <Card className="pt-2" style={{ width: '10rem' }}>
+              <Card.Title className="text-center">{shirt.name}</Card.Title>
+              <Card.Img variant="top" src={shirt.urlImage} />
+              <Card.Body>
+                <Card.Text className="text-center">
+                  {shirt.price}€, {shirt.number}
+                </Card.Text>
+                <Button variant="warning text-white" className="w-100">Vedi dettagli</Button>
+              </Card.Body>
+            </Card>
+          </Button>
+        </Col>
+      ))}
+    </Row>
+  </Container>
   );
 };
 
