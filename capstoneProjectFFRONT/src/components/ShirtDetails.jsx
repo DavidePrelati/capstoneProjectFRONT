@@ -7,6 +7,10 @@ const ShirtDetail = () => {
   const decodedShirtName = decodeURIComponent(shirtName);
   const [shirt, setShirt] = useState(null);
   const [token, setToken] = useState(null);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
   useEffect(() => {
     const localeToken = localStorage.getItem("token");
@@ -49,6 +53,14 @@ const ShirtDetail = () => {
     }
   }, [token, decodedShirtName]);
 
+  const addToCart = (shirt) => {
+    const updatedCart = [...cart, shirt];
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+
+
   if (!shirt) {
     return <div>Caricamento...</div>;
   }
@@ -56,48 +68,35 @@ const ShirtDetail = () => {
   return (
     <Container className="text-center d-flex justify-content-center align-items-center">
       <Card style={{ width: "auto" }}>
-        {" "}
         <Card.Body>
           <Row className="g-0">
-            {" "}
-            
             <Col md={4}>
-              {" "}
-            
               <Card.Img
                 src={shirt.urlImage}
-                className="img-fluid"
+                className="px-auto mx-auto"
                 style={{ height: "100%", objectFit: "cover" }}
               />
             </Col>
             <Col md={8}>
-              {" "}
-             
               <Card.Body className="text-start">
-                {" "}
-               
                 <Card.Title className="text-center ">{shirt.name}</Card.Title>
                 <Card.Text>
                   Scendi in campo con stile ed eleganza con la nostra maglietta
-                  da calcio {shirt.name}! Progettata per i veri
-                  appassionati, questa maglietta combina performance e comfort,
-                  assicurandoti di rimanere fresco anche durante le partite più
-                  intense. Realizzata con tessuti di alta qualità, traspiranti e
-                  leggeri, ti offre una libertà di movimento senza pari, mentre
-                  il design moderno e accattivante ti permette di sfoggiare con
-                  orgoglio i tuoi colori preferiti, sia in campo che sugli
-                  spalti. Scegli di fare la differenza e unisciti ai campioni
-                  con una maglietta che è più di un semplice capo
-                  d abbigliamento – è una dichiarazione di passione e dedizione
-                  per il calcio. Non perdere l opportunità di portare il tuo
-                  gioco al livello successivo. Acquista ora e diventa parte
-                  della squadra vincente!
+                  da calcio {shirt.name}! Progettata per i veri appassionati,
+                  questa maglietta combina performance e comfort, assicurandoti
+                  di rimanere fresco anche durante le partite più intense.
+                  Realizzata con tessuti di alta qualità, traspiranti e leggeri,
+                  ti offre una libertà di movimento senza pari.
                 </Card.Text>
                 <ListGroup className="list-group-flush">
                   <ListGroup.Item>Anno uscita: {shirt.number}</ListGroup.Item>
                   <ListGroup.Item>Prezzo: {shirt.price}€</ListGroup.Item>
                 </ListGroup>
-                <Button variant="success" className="mt-3">
+                <Button
+                  variant="success"
+                  className="mt-3"
+                  onClick={() => addToCart(shirt)}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -114,6 +113,8 @@ const ShirtDetail = () => {
           </Row>
         </Card.Body>
       </Card>
+
+     
     </Container>
   );
 };

@@ -67,9 +67,9 @@ const Shirt = () => {
             onClick={() => navigate(`/shirt/${shirt.id}`)}
             className="p-0" 
           >
-            <Card className="pt-2" style={{ width: '10rem' }}>
+            <Card className="pt-2" style={{ width: '15rem' }}>
               <Card.Title className="text-center">{shirt.name}</Card.Title>
-              <Card.Img variant="top" src={shirt.urlImage} />
+              <Card.Img variant="top" src={shirt.urlImage} style={{width:"200px", height:"200px"}}/>
               <Card.Body>
                 <Card.Text className="text-center">
                   {shirt.price}€, {shirt.number}

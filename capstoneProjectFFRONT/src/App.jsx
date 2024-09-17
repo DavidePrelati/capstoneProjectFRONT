@@ -8,6 +8,7 @@ import Squad from "./components/Squad";
 import Shirt from "./components/Shirt";
 import ShirtDetail from "./components/ShirtDetails";
 import MyNavbar from "./components/NavBar";
+import Payment from "./components/Payment";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/squad/:squadName" element={<Shirt />} />
         <Route path="/shirt/:shirtName" element={<ShirtDetail />} />
         <Route path="/register" element={<RegisterUser />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </BrowserRouter>
   );
